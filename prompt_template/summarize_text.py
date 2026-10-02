@@ -1,19 +1,17 @@
-from langchain_core.prompts import PromptTemplate
+import sys
+
 from dotenv import load_dotenv
+from langchain_core.prompts import PromptTemplate
 from langchain_groq import ChatGroq
 
-import sys
+
 load_dotenv()
 
-sys.stdout.reconfigure(encoding='utf-8')
+sys.stdout.reconfigure(encoding="utf-8")
 
-LLM = ChatGroq(
-    model="openai/gpt-oss-20b",
-    temperature=0.3,
-    max_tokens=500
-)
+LLM = ChatGroq(model="openai/gpt-oss-20b", temperature=0.3, max_tokens=500)
 
-text="""
+text = """
 # Bhagat Singh – The Revolutionary Freedom Fighter
 
 Bhagat Singh was one of the most influential revolutionaries of the Indian independence movement. He is remembered for his courage, patriotism, revolutionary ideas, and willingness to sacrifice his life for the freedom of India. Although he lived for only 23 years, his thoughts and actions had a lasting impact on India's struggle against British rule. Even today, Bhagat Singh is remembered as a symbol of courage, sacrifice, and the desire for freedom.
@@ -60,17 +58,14 @@ summary_template = """
 
 """
 
-prompt = PromptTemplate(
-    input_variables=["text"],
-    template=summary_template
-)
+prompt = PromptTemplate(input_variables=["text"], template=summary_template)
 # formatted_prompt = prompt.invoke({"text":text})
 
 # result=LLM.invoke(formatted_prompt)
 # print(result.content.replace("**", ""))
-    
 
-chain=prompt | LLM #LCEL
 
-result=chain.invoke({"text":text})
+chain = prompt | LLM  # LCEL
+
+result = chain.invoke({"text": text})
 print(result.content.replace("**", ""))

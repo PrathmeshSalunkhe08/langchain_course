@@ -1,17 +1,13 @@
-from langchain_core.prompts import PromptTemplate
 from dotenv import load_dotenv
+from langchain_core.prompts import PromptTemplate
 from langchain_groq import ChatGroq
-
-
 
 load_dotenv()
 
 
-LLM=ChatGroq(
+LLM = ChatGroq(
     model="openai/gpt-oss-20b",
     temperature=0.3,
-    
-
 )
 prompt = PromptTemplate(
     input_variables=["Age", "Height", "Weight", "Goals", "Gender"],
@@ -20,16 +16,18 @@ prompt = PromptTemplate(
     Your task is to provide the daily calorie requirement for a person based on their age: {Age}, gender: {Gender}, height: {Height}, weight: {Weight} and fitness goals: {Goals}.
     Explain nicely without using any bold formatting or double asterisks (**)
     Explain Shortly.
-    """
+    """,
 )
 
-formatted_prompt = prompt.invoke({
-    "Age": "22",
-    "Gender": "Male",
-    "Height": "160 cm",
-    "Weight": "58 kg",
-    "Goals": "Weight Gain"
-})
+formatted_prompt = prompt.invoke(
+    {
+        "Age": "22",
+        "Gender": "Male",
+        "Height": "160 cm",
+        "Weight": "58 kg",
+        "Goals": "Weight Gain",
+    }
+)
 
 result = LLM.invoke(formatted_prompt)
 print(result.content)
