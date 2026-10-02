@@ -64,8 +64,13 @@ prompt = PromptTemplate(
     input_variables=["text"],
     template=summary_template
 )
-formatted_prompt = prompt.invoke({"text":text})
+# formatted_prompt = prompt.invoke({"text":text})
 
-result=LLM.invoke(formatted_prompt)
-print(result.content.replace("**", ""))
+# result=LLM.invoke(formatted_prompt)
+# print(result.content.replace("**", ""))
     
+
+chain=prompt | LLM #LCEL
+
+result=chain.invoke({"text":text})
+print(result.content.replace("**", ""))
